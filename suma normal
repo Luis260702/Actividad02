@@ -1,0 +1,22 @@
+import time
+import random
+
+def sum_lists(a, b):
+    return [x + y for x, y in zip(a, b)]
+
+if __name__ == "__main__":
+    # Generar listas aleatorias
+    a = [random.randint(1, 10) for _ in range(5)]
+    b = [random.randint(1, 10) for _ in range(5)]
+    
+    start_time = time.time()  # Tiempo de inicio
+    
+    result = sum_lists(a, b)
+    
+    end_time = time.time()  # Tiempo de finalización
+    elapsed_time = end_time - start_time
+    
+    print("Lista a:", a)
+    print("Lista b:", b)
+    print("Suma de las listas:", result)
+    print("Tiempo de ejecución:", elapsed_time, "segundos")
