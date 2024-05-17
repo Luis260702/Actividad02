@@ -1,0 +1,31 @@
+import multiprocessing
+import time
+import random
+
+def sum_lists(tid, a, b, c):
+    c[tid] = a[tid] + b[tid]
+
+if __name__ == "__main__":
+    # Generar listas aleatorias
+    a = [random.randint(1, 10) for _ in range(5)]
+    b = [random.randint(1, 10) for _ in range(5)]
+    c = multiprocessing.Array('i', 5)  # Matriz compartida
+    
+    start_time = time.time()  # Tiempo de inicio
+    
+    processes = []
+    for tid in range(5):
+        process = multiprocessing.Process(target=sum_lists, args=(tid, a, b, c))
+        processes.append(process)
+        process.start()
+    
+    for process in processes:
+        process.join()
+    
+    end_time = time.time()  # Tiempo de finalización
+    elapsed_time = end_time - start_time
+    
+    print("Lista a:", a)
+    print("Lista b:", b)
+    print("Suma de las listas:", list(c))
+    print("Tiempo de ejecución:", elapsed_time, "segundos")
